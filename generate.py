@@ -1,9 +1,8 @@
 from transformers import T5ForConditionalGeneration
 from transformers import AutoTokenizer
 
-question = "白浅第几集要回眼睛"
-context = "第56集 白浅恢复记忆便直接上了九重天找到素锦,素锦知道眼前的白浅就是当年的素素,惊吓不已,白浅冷笑望着跪地求饶的素锦道,本上神这眼睛你这三百年来用的可好,如今也该物归原主了吧,是你自己剜还是本上神亲自动手,素锦吓得连连后退,白浅取回来双眼,看都不看素锦一眼便离开了"
-
+question = "柚子茶的热量大概是多少?"
+context = "（韩国）蜂蜜柚子茶的热量(以100克可食部分计)是305大卡(1276千焦)，在同类食物中单位热量较高。每100克（韩国）蜂蜜柚子茶的热量约占中国营养学会推荐的普通成年人保持健康每天所需摄入总热量的13%。"
 
 # 加载分词器  
 tokenizer = AutoTokenizer.from_pretrained("uer/t5-small-chinese-cluecorpussmall")  
@@ -15,7 +14,6 @@ input_text = "question: " + question + " context: " + context
 
 # 对输入文本进行编码  
 input_ids = tokenizer.encode(input_text, return_tensors='pt')
-print(input_ids.shape)
 
 # 加载模型  
 model = T5ForConditionalGeneration.from_pretrained('t5_model_results/checkpoint-90700')  
@@ -40,7 +38,7 @@ try:
 except ValueError:  
     truncated_ids = output  # 如果没有 [SEP]，返回完整列表
 
-print(truncated_ids)
+# print(truncated_ids)
 # 解码生成的文本  
 output_text = tokenizer.decode(truncated_ids, skip_special_tokens=True)
 

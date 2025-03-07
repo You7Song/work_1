@@ -6,7 +6,7 @@ from tqdm import tqdm
 # 将模型移动到 GPU 0  
 device = torch.device("cuda:0")  # 明确使用 gpu0  
 # 加载模型  
-model = T5ForConditionalGeneration.from_pretrained('t5_model_results/checkpoint-81630').to(device)
+model = T5ForConditionalGeneration.from_pretrained('t5_model_results/checkpoint-90800').to(device)
 dataset_test = DuReaderQGTest('DuReaderQG/dev.json')
 # 查找第一个 [SEP] 的 token ID  
 sep_token_id = dataset_test.tokenizer.sep_token_id
@@ -58,4 +58,5 @@ results = {
     "eval_BLEU-4": bleu4,  
 }
 
-print(results)
+for key, value in results.items():  
+    print(f"{key}: {value}")
